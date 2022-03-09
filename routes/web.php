@@ -38,10 +38,9 @@ Route::get('/about', function () {
 Route::get('/post/{content:slug}', [PostController::class, 'show']);
 
 Route::get('/categories/{category:slug}', function (Category $category) {
-    return view('Category', [
-        'title' => $category->name,
-        'post' => $category->post,
-        'category' => $category->name
+    return view('post', [
+        'title' => "Post by Category : $category->name ",
+        'posts' => $category->post,
     ]);
 });
 
@@ -54,7 +53,7 @@ Route::get('/categories', function () {
 
 Route::get('/authors/{author:username}', function(User $author) {
     return view('post', [
-        'title' => 'User Post',
-         'posts' => $author->post
+        'title' => "Post by Author : $author->name",
+         'posts' => $author->post->load('category', 'user'),
     ]);
 });
