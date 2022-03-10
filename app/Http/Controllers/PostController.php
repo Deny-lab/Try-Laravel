@@ -10,10 +10,17 @@ class PostController extends Controller
 {
     public function index()
     {
+        $posts = Post::latest();
+
+        if (request('search')) {
+            $posts->where('title', 'like', '%' . request('search') . '%')
+                    ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
+
         return view('post', [
             'title' => 'All Posts',
             // 'posts' => Post::all()
-            'posts' => Post::with(['user', 'category'])->latest()->get()
+            'posts' => $posts->paginate(4)
         ]);
     }
 
@@ -24,4 +31,6 @@ class PostController extends Controller
             "post" => $content
         ]);
     }
+
+
 }
