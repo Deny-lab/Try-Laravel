@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Laravelia</a>
@@ -13,10 +15,15 @@
             <a class="nav-link {{ $title === "About" ? 'active' : '' }}" href="/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ $title === "Posts" ? 'active' : '' }}" href="/post">Posts</a>
+            <a class="nav-link {{ $title === "post" ? 'active' : '' }}" href="/post">Posts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ $title === "Post Categories" ? 'active' : '' }}" href="/categories">Categories</a>
+            <a class="nav-link {{ $title === "Categories" ? 'active' : '' }}" href="/categories">Categories</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+              <a href="/login" class="nav-link"><i class="bi bi-box-arrow-right"></i>Login</a>
           </li>
         </ul>
       </div>
