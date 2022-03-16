@@ -17,7 +17,13 @@
 
 @if ($posts->count())
 <div class="card my-3">
-    <img src="https://source.unsplash.com/1200x300/?{{ $posts[0]->category->name }}" class="card-img-top" alt="...">
+  @if ($posts[0]->image)
+  <div style="max-height: 350px; overflow:hidden;">
+      <img src={{ asset('storage/' . $posts[0]->image) }} alt="{{ $posts[0]->category->name }}" class="img-fluid mt-3">
+  </div>
+  @else
+  <img src="https://source.unsplash.com/1200x400?{{ $posts[0]->category->name }}" alt="{{ $posts[0]->category->name }}" class="img-fluid mt-3">  
+  @endif
     <div class="card-body text-center">
       <h2 class="card-title "><a href="/post/{{ $posts[0]->slug }}" class="text-decoration-none text-dark">{{ $posts[0]->title }}</a></h2>
       <p>
@@ -38,11 +44,17 @@
     @foreach ($posts->skip(1) as $post)
     <div class="col-md-4">
       <div class="card mb-3">
-        <img src="https://source.unsplash.com/500x400?{{ $post->category->name }}" class="card-img-top" alt="...">
+        @if ($post->image)
+        <div style="max-height: 350px; overflow:hidden;">
+            <img src={{ asset('storage/' . $post->image) }} alt="{{ $post->category->name }}" class="img-fluid mt-3">
+        </div>
+        @else
+        <img src="https://source.unsplash.com/500x400?{{ $post->category->name }}" alt="{{ $post->category->name }}" class="img-fluid mt-3">  
+        @endif
         <div class="position-absolute px-3 py-2" style="background-color: rgba(0,0,0,0.6)"><a href="/categories/{{ $post->category->slug }}" class="text-decoration-none text-white">{{ $post->category->name }}</a></div>
         <div class="card-body">
           <h5 class="card-title"><a href="/post/{{ $post->slug }}">{{ $post->title }}</a></h5>
-          <p class="card-text">By <a href="/authors/{{ $post->user->username }}">{{ $post->user->name }}</a>{{ $posts[0]->created_at->diffForHumans() }}</p>
+          <p class="card-text">By <a href="/authors/{{ $post->user->username }}">{{ $post->user->name }} </a>{{ $posts[0]->created_at->diffForHumans() }}</p>
           <p>{{ $post->excerpt }}</p>
           <a href="/post/{{ $post->slug }}" class="btn btn-primary">Read more</a>
         </div>

@@ -16,14 +16,17 @@
                   <span data-feather="x-circle"></span> Delete</button>
               </form>
 
-            
-
-                <h5>{{ $posts->author }}</h5>
-                <img src="https://source.unsplash.com/1200x400?{{ $posts->category->name }}" alt="{{ $posts->category->name }}" class="img-fluid mt-3">
+                @if ($posts->image)
+                <div style="max-height: 350px; overflow:hidden;">
+                    <img src={{ asset('storage/' . $posts->image) }} alt="{{ $posts->category->name }}" class="img-fluid mt-3">
+                </div>
+                @else
+                <img src="https://source.unsplash.com/1200x400?{{ $posts->category->name }}" alt="{{ $posts->category->name }}" class="img-fluid mt-3">  
+                @endif
                 
+                <h5>{{ $posts->author }}</h5>
                 <article class="my-3 fs-5">
-
-                    {!! $posts->body !!}
+                {!! $posts->body !!}
                 </article>
                 
         </div>
